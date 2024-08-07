@@ -6,6 +6,7 @@ import cors from 'cors'
 
 import authRoutes from './routes/auth.routes.js'
 import productRoutes from './routes/product.routes.js'
+import visitorRoutes from './routes/visitor.routes.js'
 
 import checkAuth from "./middleware/checkAuth.js";
 
@@ -27,6 +28,7 @@ app.use(cors({
 
 app.use('/api/auth', authRoutes)
 app.use('/api/product', productRoutes)
+app.use('/api', visitorRoutes)
 
 // validate token
 

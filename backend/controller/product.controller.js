@@ -104,6 +104,57 @@ async function deleteProduct(req, res) {
             res.status(200).json({ message: "Product deleted" })
         }
     } catch (error) {
+        res.status(500).json({ message: "Something went wrong, try again later." })
+    }
+}
+// get all user products
+async function myProducts(req, res) {
+    try {
+        let { createdBy, p } = req.query
+
+        // if(createdBy != res.locals.user.id) {
+        //     res.status(401).json({ message: "You are not authorized to perform this action." })
+        //     return
+        // }
+
+        // pagination
+        p = parseInt(p) || 0;
+        let productsPerSet = 6;
+        let userHasProducts;
+
+        let myProducts = await Products.find({ createdBy })
+            .sort({ createdAt: -1 })
+            .skip(p * productsPerSet)
+            .limit(productsPerSet);
+
+        if (myProducts) {
+            userHasProducts = true
+        } else {
+            userHasProducts = false
+        }
+
+        // checking if user has products
+        // if user has no product, return "You don't have any products."
+        //  else paginate and return user products until all products are returned 
+        if (userHasProducts) {
+            if (myProducts.length === 0) {
+                res.status(200).json({
+                    message: "You've caught up with all your products.",
+                    allRetrieved: true,
+                });
+            } else {
+                res.status(200).json({ message: myProducts, allRetrieved: false });
+            }
+        } else {
+            res.status(200).json({
+                message: "You don't have any products.",
+                allRetrieved: true,
+            });
+        }
+
+
+
+    } catch (error) {
         console.log(error)
         res.status(500).json({ message: "Something went wrong, try again later." })
     }
@@ -112,5 +163,6 @@ async function deleteProduct(req, res) {
 export default {
     add,
     edit,
-    deleteProduct
+    deleteProduct,
+    myProducts
 }

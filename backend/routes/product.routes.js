@@ -5,7 +5,7 @@ import path from "path"
 import { fileURLToPath } from "url"
 import fs from "fs"
 
-let { add, edit, deleteProduct } = productsController
+let { add, edit, deleteProduct, myProducts } = productsController
 let router = express.Router()
 
 // MULTER SETUP
@@ -65,5 +65,6 @@ router.post('/add', (req, res) => {
 
 router.patch('/edit', edit)
 router.delete('/delete', deleteProduct)
+router.get('/my-products', myProducts)
 
 export default router
