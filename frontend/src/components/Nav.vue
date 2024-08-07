@@ -62,9 +62,9 @@ const dropdown = ref(null);
 //   }
 // };
 
-onMounted(() => {
-  document.addEventListener('click', handleDocumentClick);
-});
+// onMounted(() => {
+//   document.addEventListener('click', handleDocumentClick);
+// });
 
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleDocumentClick);

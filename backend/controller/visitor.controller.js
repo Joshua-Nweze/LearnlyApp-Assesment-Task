@@ -31,7 +31,7 @@ async function getProducts(req, res) {
                     allRetrieved: true,
                 });
             } else {
-                res.status(200).json({ message: myProducts, allRetrieved: myProducts.length >= 6 });
+                res.status(200).json({ message: myProducts, allRetrieved: myProducts.length < 6 });
             }
         } else {
             res.status(200).json({

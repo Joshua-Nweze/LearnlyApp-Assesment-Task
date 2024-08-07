@@ -12,7 +12,6 @@ let router = express.Router()
 // Ensure uploads directory exists
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-console.log(`${__dirname}`)
 
 const uploadDir = path.join(__dirname, '../public/uploads');
 if (!fs.existsSync(uploadDir)) {

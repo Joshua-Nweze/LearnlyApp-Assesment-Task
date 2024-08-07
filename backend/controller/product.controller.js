@@ -7,6 +7,16 @@ async function add(req, res) {
         let { name, description, price, createdBy } = req.body
         let file = req.file
 
+        if (file) {
+            let imagePath = file.path
+
+            const imageBuffer = fs.readFileSync(imagePath);
+            // Encode the image buffer as a Base64 string
+            const imageBase64 = imageBuffer.toString('base64');
+
+            file = imageBase64
+        }
+
         if (!name || !description || !price || !createdBy) {
             res.status(400).json({ message: "All input is required" })
             return
@@ -21,7 +31,7 @@ async function add(req, res) {
             description,
             price,
             createdBy,
-            imageUrl: file.path
+            imageUrl: file
         })
 
         let createProduct = await newProduct.save()
